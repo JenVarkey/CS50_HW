@@ -1,29 +1,30 @@
-fraction = input("Fraction: ")
-while True:
-    try:
+def main():
+    print(gauge(convert(input("Fraction: "))))
 
-        num = float(fraction[0:fraction.find("/")])
-        den = float(fraction[fraction.find("/")+1:])
-        if num <= den and fraction.find(".") == -1:
-            break
-        else:
-            fraction = input("Fraction: ")
-    except ValueError:
-        print("Made it here")
-        fraction = input("Fraction: ")
-
-
-
-try:
+def convert(fraction):
+    num = float(fraction[0:fraction.find("/")])
+    den = float(fraction[fraction.find("/")+1:])
+    print()
+    if den < num:
+        raise ValueError
     if(num/den > 0.01):
         if(num/den < 0.99):
-           percent = num/den
-           percent = round(percent, 2) * 100
-           percent = int(percent)
-           print(str(percent) + "%")
+            percent = num/den
+            percent = round(percent, 2) * 100
+            percent = int(percent)
+            return percent
         else:
-            print("F")
+            return 100
     else:
-        print("E")
-except ZeroDivisionError:
-    print("E")
+        return 0
+
+def gauge(percentage):
+    if percentage == 0:
+        return "E"
+    elif percentage == 100:
+        return "F"
+    else:
+        return str(percentage) + "%"
+
+if __name__ == "__main__":
+    main()
